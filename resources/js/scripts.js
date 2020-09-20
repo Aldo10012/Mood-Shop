@@ -31,16 +31,46 @@ for (let i=0; i<data.length; ++i) {
     itemsContainer.appendChild(newDiv)
   }
 
-  const cart = []
-  function addItem(name,price){
-      const item = {name:name, price:price, qty:1}
-      cart.push(item)
-  }
-  function showItems(){
-      console.log(cart)
-  }
+const cart = []
+function addItem(name,price){
+    for (let i = 0; i < cart.length; i+=1) {
+        if (cart[1].name === name) {
+            cart[1].qty += 1
+        }
+        return
+    }
 
-  addItem('apple',1)
-  addItem('orange',2)
-  addItem('mango',3)
-  showItems()
+    const item = {name, price, qty:1}
+    cart.push(item)
+}
+
+function showItems(){
+    let qty = getQty()
+    let total = getTotal()
+    console.log(`You have ${qty} items in your cart. `)
+    for (let i = 0; i < cart.length; i += 1) {
+        console.log(`${cart[i].name} $${cart[i].price} ${cart[i].qty}`)
+    }
+    console.log(`Total in cart is ${total.toFixed(2)}`)
+}
+
+function getQty() {
+    let qty = 1
+    for (let i = 0; i < cart.length; i += 1) {
+        qty += cart[i].qty
+    }
+    return qty
+}
+
+function getTotal() {
+    let total = 0
+    for (let i = 0; i < cart.length; i += 1) {
+        total = cart[i].price * cart[i].qty
+    }
+    return total
+}
+
+addItem('apple',1)
+addItem('orange',2)
+addItem('mango',3)
+showItems()
