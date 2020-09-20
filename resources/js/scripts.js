@@ -1,9 +1,8 @@
 import data from './data.js'
 
 const itemList = document.getElementById('item-list')
-itemList.innerHTML = '<li> Hello World</li>'
-const itemQty = document.getElementById('item-qty')
-const itemTotal = document.getElementById('item-total')
+const cartQty = document.getElementById('cart-qty')
+const cartTotal = document.getElementById('cart-total')
 const itemsContainer = document.getElementById('items')
 
 for (let i=0; i<data.length; ++i) {
@@ -63,13 +62,13 @@ function showItems(){
     for (let i = 0; i < cart.length; i += 1) {
         //console.log(`${cart[i].name} $${cart[i].price} ${cart[i].qty}`)
         const {name, price, qty} = cart[i]
-        itemStr += `<li>${name} $${price} x ${qty} = ${price * qty}</li>`
-        
+        itemStr += `<li>${name} $${price} x ${qty} = ${price * qty}</li>` 
     }
+    const all_items_button = Array.from(document.querySelectorAll("button"))
 
     itemList.innerHTML = itemStr
     //console.log(`Total in cart is ${total.toFixed(2)}`)  
-    itemQty.innerHTML = `Total in cart is ${total.toFixed(2)}`
+    cartTotal.innerHTML = `Total in cart is ${total.toFixed(2)}`
 }
 // --------------------------------------------------------------
 // get quantity  
@@ -77,6 +76,10 @@ function getQty() {
     let qty = 1
     for (let i = 0; i < cart.length; i += 1) {
         qty += cart[i].qty
+        all_items_button.forEach(elt => elt.addEventListener('click', () => {
+            addItem(elt.getAttribute('id'), elt.getAttribute('data-price'))
+            showItems()
+          }))
     }
     return qty
 }
@@ -86,6 +89,10 @@ function getTotal() {
     let total = 0
     for (let i = 0; i < cart.length; i += 1) {
         total = cart[i].price * cart[i].qty
+        all_items_button.forEach(elt => elt.addEventListener('click', () => {
+            addItem(elt.getAttribute('id'), elt.getAttribute('data-price'))
+            showItems()
+          }))
     }
     return total
 }
@@ -93,6 +100,10 @@ function getTotal() {
 // remove item  
 function removeItem(name, qty = 0){
     for (let i = 0; i < cart.length; i += 1) {
+        all_items_button.forEach(elt => elt.addEventListener('click', () => {
+            addItem(elt.getAttribute('id'), elt.getAttribute('data-price'))
+            showItems()
+          }))
         if (cart[i].name === name) {
             if (qty > 0) {
                 cart[i].qty -= qty
