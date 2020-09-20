@@ -31,6 +31,10 @@ for (let i=0; i<data.length; ++i) {
     itemsContainer.appendChild(newDiv)
   }
 
+
+
+// --------------------------------------------------------------
+// add item  
 const cart = []
 function addItem(name,price){
     for (let i = 0; i < cart.length; i+=1) {
@@ -43,7 +47,8 @@ function addItem(name,price){
     const item = {name, price, qty:1}
     cart.push(item)
 }
-
+// --------------------------------------------------------------
+// show item  
 function showItems(){
     let qty = getQty()
     let total = getTotal()
@@ -53,7 +58,8 @@ function showItems(){
     }
     console.log(`Total in cart is ${total.toFixed(2)}`)
 }
-
+// --------------------------------------------------------------
+// get quantity  
 function getQty() {
     let qty = 1
     for (let i = 0; i < cart.length; i += 1) {
@@ -61,7 +67,8 @@ function getQty() {
     }
     return qty
 }
-
+// --------------------------------------------------------------
+// get total  
 function getTotal() {
     let total = 0
     for (let i = 0; i < cart.length; i += 1) {
@@ -69,6 +76,26 @@ function getTotal() {
     }
     return total
 }
+// --------------------------------------------------------------
+// remove item  
+function removeItem(name, qty = 0){
+    for (let i = 0; i < cart.length; i += 1) {
+        if (cart[i].name === name) {
+            if (qty > 0) {
+                cart[i].qty -= qty
+            }
+            
+            if (cart[i].qty < 1 || qty == 0){
+                cart.splice(i, 1)
+            }
+            
+            return
+        }
+    }
+}
+
+
+
 
 addItem('apple',1)
 addItem('orange',2)
