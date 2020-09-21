@@ -168,7 +168,6 @@ function pdateCart(name,qty) {
 
 
 
-
 addItem('apple',1)
 addItem('orange',2)
 addItem('mango',3)
